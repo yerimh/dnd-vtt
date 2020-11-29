@@ -31,21 +31,10 @@ public class TextManager : MonoBehaviour
                 // roll
                 if (chatBox.text[0] == '/') {
                     try {
-                        int indexOfD = chatBox.text.IndexOf('d');
-                        int multiplier;
-                        if (indexOfD > 1) { // if there's a multiplier
-                            string multiplierS = chatBox.text.Substring(1,indexOfD - 1);
-                            multiplier = int.Parse(multiplierS);
-                        } else {
-                            multiplier = 1;
+                        if (chatBox.text[1] == 'r') {
+                            rollDice();
                         }
-                        int die = int.Parse(chatBox.text.Substring(indexOfD + 1));
-                        int random = UnityEngine.Random.Range(1, die);
-                        string message = username + " rolled a ";
-                        SendMessageToChat(message + multiplier * random + "!", Message.MessageType.roll);
-                        chatBox.text = "";
-                    }
-                    catch {
+                    } catch {
                         SendMessageToChat("Enter a valid number", Message.MessageType.error);
                         chatBox.text = "";
                     }
@@ -111,6 +100,23 @@ public class TextManager : MonoBehaviour
         }
 
         return color;
+    }
+
+    public void rollDice() {
+        string[] command = chatBox.text.Split();
+        int indexOfD = command[1].IndexOf('d');
+        int multiplier;
+        if (indexOfD > 1) { // if there's a multiplier
+            string multiplierS = chatBox.text.Substring(1,indexOfD - 1);
+            multiplier = int.Parse(multiplierS);
+        } else {
+            multiplier = 1;
+        }
+        int die = int.Parse(chatBox.text.Substring(indexOfD + 1));
+        int random = UnityEngine.Random.Range(1, die);
+        string message = username + " rolled a ";
+        SendMessageToChat(message + multiplier * random + "!", Message.MessageType.roll);
+        chatBox.text = "";
     }
 }
 
