@@ -9,7 +9,6 @@ public class CharacterStatManager : MonoBehaviour
     private bool state = false;
     [SerializeField] Button profile;
     [SerializeField] Canvas characterSheet;
-
     [SerializeField] TMP_InputField charNameInput, playerNameInput;
     public string charName, playerName;
     [SerializeField] TMP_InputField levelInput;
